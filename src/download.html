@@ -1,0 +1,358 @@
+<!--
+    youtube-download-injector - A browser extension to detect and download YouTube videos, audio, and subtitles.
+    Copyright (C) 2026 anpa26
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html lang="en" class="mdui-theme-light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Manager</title>
+  <link rel="stylesheet" href="styles/mdui.css">
+  <script src="libraries/mdui.global.js"></script>
+  <style>
+    :root {
+      --dm-max-width: 640px;
+      --dm-radius: 16px;
+      --dm-card-radius: 14px;
+      --dm-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: rgb(var(--mdui-color-surface));
+      color: rgb(var(--mdui-color-on-surface));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    .dm-header {
+      background: rgb(var(--mdui-color-surface-container));
+      border-bottom: 1px solid rgb(var(--mdui-color-outline-variant));
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .dm-header-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .dm-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgb(var(--mdui-color-surface-container-highest));
+      color: rgb(var(--mdui-color-primary));
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .manager-layout {
+      max-width: var(--dm-max-width);
+      width: 92%;
+      margin: 24px auto 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex-grow: 1;
+    }
+
+    .downloads-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .download-card {
+      background: rgb(var(--mdui-color-surface-container-low));
+      border: 1px solid rgb(var(--mdui-color-outline-variant));
+      border-radius: var(--dm-card-radius);
+      overflow: hidden;
+      transition: var(--dm-transition);
+      animation: cardSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes cardSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card-content {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: var(--dm-transition);
+    }
+
+    .download-card.preview-active .card-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .thumbnail-wrapper {
+      width: 60px;
+      height: 45px;
+      background: rgb(var(--mdui-color-surface-container-highest));
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--dm-transition);
+    }
+
+    .download-card.preview-active.is-audio .thumbnail-wrapper {
+      width: 100%;
+      height: 60px;
+    }
+
+    .download-card.preview-active.is-video .thumbnail-wrapper {
+      width: 100%;
+      height: 280px;
+    }
+
+    .thumbnail-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--dm-transition);
+    }
+
+    .thumbnail-wrapper audio,
+    .thumbnail-wrapper video {
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
+    .info-wrapper {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .file-name {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      word-break: break-all;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .status-text {
+      margin: 3px 0 0 0;
+      font-size: 0.78rem;
+      color: rgb(var(--mdui-color-on-surface-variant));
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .progress-bar-wrapper {
+      padding: 0 2px;
+    }
+
+    .progress-bar-wrapper mdui-linear-progress {
+      --mdui-shape-corner-extra-small: 4px;
+      height: 5px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .button-group mdui-button {
+      --mdui-shape-corner-extra-small: 20px;
+      height: 34px;
+      font-weight: 600;
+      font-size: 0.82rem;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 24px;
+      background: rgb(var(--mdui-color-surface-container-low));
+      border: 2px dashed rgb(var(--mdui-color-outline-variant));
+      border-radius: var(--dm-radius);
+      text-align: center;
+      animation: emptyFadeIn 0.6s ease both;
+    }
+
+    @keyframes emptyFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .empty-icon {
+      width: 64px;
+      height: 64px;
+      background: rgb(var(--mdui-color-surface-container-highest));
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .empty-icon svg {
+      width: 28px;
+      height: 28px;
+      color: rgb(var(--mdui-color-on-surface-variant));
+      opacity: 0.7;
+    }
+
+    .empty-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0 0 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .empty-desc {
+      font-size: 0.82rem;
+      color: rgb(var(--mdui-color-on-surface-variant));
+      margin: 0;
+      font-weight: 500;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .dm-header {
+        padding: 12px 16px;
+      }
+
+      .manager-layout {
+        width: 95%;
+        margin: 16px auto 32px;
+      }
+
+      .card-content {
+        padding: 14px;
+      }
+
+      .empty-state {
+        padding: 40px 16px;
+      }
+    }
+
+    html.theme-pitch-black,
+    html.theme-pitch-black body,
+    html.theme-pitch-black .dm-header {
+      background-color: #000000 !important;
+      background: #000000 !important;
+      --mdui-color-surface: 0, 0, 0 !important;
+      --mdui-color-surface-dim: 0, 0, 0 !important;
+      --mdui-color-surface-bright: 10, 10, 10 !important;
+      --mdui-color-surface-container-lowest: 0, 0, 0 !important;
+      --mdui-color-surface-container-low: 8, 8, 8 !important;
+      --mdui-color-surface-container: 12, 12, 12 !important;
+      --mdui-color-surface-container-high: 20, 20, 20 !important;
+      --mdui-color-surface-container-highest: 28, 28, 28 !important;
+      --mdui-color-background: 0, 0, 0 !important;
+    }
+
+    html.theme-pitch-black .download-card {
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background-color: #0c0c0c !important;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="dm-header">
+    <h1 class="dm-header-title">
+      <span data-i18n="ui_download_manager">Download Manager</span>
+    </h1>
+    <span class="dm-badge">YTD</span>
+  </header>
+
+  <div class="manager-layout">
+    <div id="list-header" style="display: none; margin-bottom: 8px;"></div>
+
+    <div id="empty-state" class="empty-state">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+      </div>
+      <h3 class="empty-title" data-i18n="ui_empty_title">All Caught Up!</h3>
+      <p class="empty-desc" data-i18n="ui_empty_desc">No active downloads or tasks at the moment. Start downloading media to see them here.</p>
+    </div>
+
+    <div id="downloads-list" class="downloads-list"></div>
+  </div>
+
+  <mdui-dialog id="preview-dialog" close-on-overlay-click style="min-width: 320px; max-width: 600px;">
+    <span slot="headline" id="preview-title" data-i18n="ui_preview">Preview</span>
+    <div id="preview-content" style="display: flex; justify-content: center; align-items: center; padding: 0 16px 16px 16px;"></div>
+    <mdui-button slot="action" variant="text" id="close-preview-btn" data-i18n="ui_close">Close</mdui-button>
+  </mdui-dialog>
+
+  <script src="libraries/lame.min.js"></script>
+  <script src="download.js"></script>
+</body>
+</html>
