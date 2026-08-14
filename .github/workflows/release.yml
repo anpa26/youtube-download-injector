@@ -1,0 +1,63 @@
+name: Build and Release Extension
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name for the release (e.g., v1.3.1)'
+        required: true
+      prerelease:
+        description: 'Publish as Pre-release'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Prepare build directory
+        run: |
+          mkdir -p build
+          cp -r src/* build/
+          # Hapus script pembantu agar tidak masuk ke extension hasil build
+          rm -f build/minify.js
+
+      - name: Minify build assets
+        run: |
+          npm install terser html-minifier-terser clean-css
+          node src/minify.js
+
+      - name: Create Firefox XPI Build
+        run: |
+          cd build
+          zip -9 -r ../youtube-download-injector-${{ github.event.inputs.tag_name }}.xpi ./*
+          cd ..
+
+      - name: Create Source Code Archive
+        run: |
+          zip -9 -r youtube-download-injector-source-${{ github.event.inputs.tag_name }}.zip src README.md LICENSE.md -x "src/minify.js"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.tag_name }}
+          name: "Release ${{ github.event.inputs.tag_name }}"
+          body: "YDI Firefox Extension build for ${{ github.event.inputs.tag_name }}"
+          prerelease: ${{ github.event.inputs.prerelease == 'true' }}
+          files: |
+            youtube-download-injector-*.xpi
+            youtube-download-injector-source-*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

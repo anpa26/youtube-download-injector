@@ -1,0 +1,218 @@
+{
+  "ext_name": {
+    "message": "YouTube Download Injector"
+  },
+  "ext_desc": {
+    "message": "Menyematkan tombol unduhan langsung di bawah pemutar video YouTube untuk mengunduh video, trek audio, dan subtitel dengan mudah."
+  },
+  "tab_home": {
+    "message": "Beranda"
+  },
+  "tab_settings": {
+    "message": "Pengaturan"
+  },
+  "section_active_downloads": {
+    "message": "Proses Unduhan"
+  },
+  "no_active_downloads": {
+    "message": "Tidak ada unduhan aktif"
+  },
+  "section_history": {
+    "message": "Riwayat Unduhan"
+  },
+  "btn_clear_history": {
+    "message": "Hapus"
+  },
+  "no_history": {
+    "message": "Tidak ada riwayat unduhan"
+  },
+  "btn_open_download_manager": {
+    "message": "Buka Pengelola Unduhan"
+  },
+  "settings_title": {
+    "message": "Pengaturan"
+  },
+  "setting_inject_btn_title": {
+    "message": "Tampilkan Tombol Unduh di YT"
+  },
+  "setting_inject_btn_desc": {
+    "message": "Tambahkan tombol unduh langsung di bawah detail video YouTube."
+  },
+  "setting_download_mode_title": {
+    "message": "Aksi Tombol Unduh"
+  },
+  "setting_download_mode_desc": {
+    "message": "Pilih apa yang terjadi ketika tombol unduh diklik."
+  },
+  "option_download_mode_popup": {
+    "message": "Menu Popup"
+  },
+  "option_download_mode_direct": {
+    "message": "Unduhan Langsung"
+  },
+  "setting_theme_title": {
+    "message": "Tema Aplikasi"
+  },
+  "setting_theme_desc": {
+    "message": "Ganti antara tema terang atau gelap."
+  },
+  "option_theme_light": {
+    "message": "Terang"
+  },
+  "option_theme_dark": {
+    "message": "Gelap"
+  },
+  "setting_direct_format_title": {
+    "message": "Langsung: Format Pilihan"
+  },
+  "setting_direct_format_desc": {
+    "message": "Format berkas default untuk diunduh."
+  },
+  "setting_direct_resolution_title": {
+    "message": "Langsung: Resolusi Pilihan"
+  },
+  "setting_direct_resolution_desc": {
+    "message": "Resolusi video yang diinginkan."
+  },
+  "option_resolution_highest": {
+    "message": "Kualitas Tertinggi"
+  },
+  "option_resolution_lowest": {
+    "message": "Kualitas Terendah"
+  },
+  "setting_direct_codec_title": {
+    "message": "Langsung: Codec Pilihan"
+  },
+  "setting_direct_codec_desc": {
+    "message": "Codec encoding video yang diinginkan."
+  },
+  "option_codec_any": {
+    "message": "Semua Codec"
+  },
+  "setting_embed_subtitles_title": {
+    "message": "Sematkan Subtitel"
+  },
+  "setting_embed_subtitles_desc": {
+    "message": "Gabungkan dan sematkan subtitel lunak secara otomatis ke dalam video."
+  },
+  "setting_auto_embed_subtitles_title": {
+    "message": "Sematkan otomatis semua subtitel"
+  },
+  "setting_auto_embed_subtitles_desc": {
+    "message": "Sematkan semua subtitel yang tersedia tanpa menampilkan popup pilihan."
+  },
+  "setting_embed_audiotracks_title": {
+    "message": "Sematkan Trek Audio"
+  },
+  "setting_embed_audiotracks_desc": {
+    "message": "Gabungkan dan sematkan trek/bahasa audio tambahan secara otomatis."
+  },
+  "setting_auto_embed_audiotracks_title": {
+    "message": "Sematkan otomatis semua trek audio"
+  },
+  "setting_auto_embed_audiotracks_desc": {
+    "message": "Sematkan semua trek audio yang tersedia tanpa menampilkan popup pilihan."
+  },
+  "status_completed": {
+    "message": "Sukses"
+  },
+  "status_failed": {
+    "message": "Gagal"
+  },
+  "status_cancelled": {
+    "message": "Dibatalkan"
+  },
+  "status_downloading": {
+    "message": "Mengunduh..."
+  },
+  "status_muxing": {
+    "message": "Menggabungkan..."
+  },
+  "status_embedding": {
+    "message": "Menyematkan subtitel..."
+  },
+  "ui_download_options": {
+    "message": "Opsi Unduhan"
+  },
+  "ui_extracting_links": {
+    "message": "Mengekstrak tautan..."
+  },
+  "ui_type": {
+    "message": "Tipe"
+  },
+  "ui_format": {
+    "message": "Format"
+  },
+  "ui_resolution": {
+    "message": "Resolusi"
+  },
+  "ui_bitrate": {
+    "message": "Bitrate"
+  },
+  "ui_codec": {
+    "message": "Codec"
+  },
+  "ui_download": {
+    "message": "Unduh"
+  },
+  "ui_video_audio": {
+    "message": "Video & Audio"
+  },
+  "ui_audio_only": {
+    "message": "Audio Saja"
+  },
+  "ui_select_subtitles": {
+    "message": "Pilih Subtitel"
+  },
+  "ui_select_subtitles_desc": {
+    "message": "Pilih subtitel yang ingin disematkan ke dalam video:"
+  },
+  "ui_select_audiotracks": {
+    "message": "Pilih Trek Audio"
+  },
+  "ui_select_audiotracks_desc": {
+    "message": "Pilih trek audio yang ingin disematkan ke dalam video:"
+  },
+  "ui_cancel": {
+    "message": "Batal"
+  },
+  "ui_confirm": {
+    "message": "Konfirmasi"
+  },
+  "status_decoding": {
+    "message": "Mendecode trek audio..."
+  },
+  "status_encoding": {
+    "message": "Mengencode ke MP3... $1%"
+  },
+  "status_ready": {
+    "message": "Siap Disimpan / Dipratinjau"
+  },
+  "status_processing": {
+    "message": "Memproses..."
+  },
+  "ui_download_manager": {
+    "message": "Pengelola Unduhan"
+  },
+  "ui_empty_title": {
+    "message": "Semua Selesai!"
+  },
+  "ui_empty_desc": {
+    "message": "Tidak ada proses unduhan atau tugas saat ini. Mulai unduh media untuk melihatnya di sini."
+  },
+  "ui_clear_all": {
+    "message": "Bersihkan Semua"
+  },
+  "ui_preview": {
+    "message": "Pratinjau"
+  },
+  "ui_close": {
+    "message": "Tutup"
+  },
+  "ui_close_preview": {
+    "message": "Tutup Pratinjau"
+  },
+  "ui_save": {
+    "message": "Simpan"
+  }
+}

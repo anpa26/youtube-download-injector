@@ -1,0 +1,218 @@
+{
+  "ext_name": {
+    "message": "YouTube Download Injector"
+  },
+  "ext_desc": {
+    "message": "Injects a direct download button below YouTube video players to easily download videos, audio streams, and subtitles."
+  },
+  "tab_home": {
+    "message": "Home"
+  },
+  "tab_settings": {
+    "message": "Settings"
+  },
+  "section_active_downloads": {
+    "message": "Active Downloads"
+  },
+  "no_active_downloads": {
+    "message": "No active downloads"
+  },
+  "section_history": {
+    "message": "Download History"
+  },
+  "btn_clear_history": {
+    "message": "Clear"
+  },
+  "no_history": {
+    "message": "No download history"
+  },
+  "btn_open_download_manager": {
+    "message": "Open Download Manager"
+  },
+  "settings_title": {
+    "message": "Settings"
+  },
+  "setting_inject_btn_title": {
+    "message": "Show Download Button on YT"
+  },
+  "setting_inject_btn_desc": {
+    "message": "Add download button directly below YouTube video details."
+  },
+  "setting_download_mode_title": {
+    "message": "Download Button Action"
+  },
+  "setting_download_mode_desc": {
+    "message": "Choose what happens when clicking the download button."
+  },
+  "option_download_mode_popup": {
+    "message": "Popup Menu"
+  },
+  "option_download_mode_direct": {
+    "message": "Direct Download"
+  },
+  "setting_theme_title": {
+    "message": "App Theme"
+  },
+  "setting_theme_desc": {
+    "message": "Switch between light or dark theme."
+  },
+  "option_theme_light": {
+    "message": "Light"
+  },
+  "option_theme_dark": {
+    "message": "Dark"
+  },
+  "setting_direct_format_title": {
+    "message": "Direct: Preferred Format"
+  },
+  "setting_direct_format_desc": {
+    "message": "Default file format to download."
+  },
+  "setting_direct_resolution_title": {
+    "message": "Direct: Preferred Resolution"
+  },
+  "setting_direct_resolution_desc": {
+    "message": "Preferred video resolution."
+  },
+  "option_resolution_highest": {
+    "message": "Highest Quality"
+  },
+  "option_resolution_lowest": {
+    "message": "Lowest Quality"
+  },
+  "setting_direct_codec_title": {
+    "message": "Direct: Preferred Codec"
+  },
+  "setting_direct_codec_desc": {
+    "message": "Preferred video encoding codec."
+  },
+  "option_codec_any": {
+    "message": "Any Codec"
+  },
+  "setting_embed_subtitles_title": {
+    "message": "Embed Subtitles if available"
+  },
+  "setting_embed_subtitles_desc": {
+    "message": "Automatically remux and burn soft subtitles inside the stream."
+  },
+  "setting_auto_embed_subtitles_title": {
+    "message": "Auto embed all subtitles available"
+  },
+  "setting_auto_embed_subtitles_desc": {
+    "message": "Automatically embed all available subtitles instead of showing a checklist popup when multiple exist."
+  },
+  "setting_embed_audiotracks_title": {
+    "message": "Embed Audio Tracks if available"
+  },
+  "setting_embed_audiotracks_desc": {
+    "message": "Automatically remux additional audio tracks (multi-language/Sulih Suara) inside the video."
+  },
+  "setting_auto_embed_audiotracks_title": {
+    "message": "Auto embed all audio tracks available"
+  },
+  "setting_auto_embed_audiotracks_desc": {
+    "message": "Automatically embed all available audio tracks instead of showing a checklist popup when multiple exist."
+  },
+  "status_completed": {
+    "message": "Success"
+  },
+  "status_failed": {
+    "message": "Failed"
+  },
+  "status_cancelled": {
+    "message": "Cancelled"
+  },
+  "status_downloading": {
+    "message": "Downloading..."
+  },
+  "status_muxing": {
+    "message": "Muxing streams..."
+  },
+  "status_embedding": {
+    "message": "Embedding subtitles..."
+  },
+  "ui_download_options": {
+    "message": "Download Options"
+  },
+  "ui_extracting_links": {
+    "message": "Extracting links..."
+  },
+  "ui_type": {
+    "message": "Type"
+  },
+  "ui_format": {
+    "message": "Format"
+  },
+  "ui_resolution": {
+    "message": "Resolution"
+  },
+  "ui_bitrate": {
+    "message": "Bitrate"
+  },
+  "ui_codec": {
+    "message": "Codec"
+  },
+  "ui_download": {
+    "message": "Download"
+  },
+  "ui_video_audio": {
+    "message": "Video & Audio"
+  },
+  "ui_audio_only": {
+    "message": "Audio Only"
+  },
+  "ui_select_subtitles": {
+    "message": "Select Subtitles"
+  },
+  "ui_select_subtitles_desc": {
+    "message": "Choose which subtitles you want to embed in the video:"
+  },
+  "ui_select_audiotracks": {
+    "message": "Select Audio Tracks"
+  },
+  "ui_select_audiotracks_desc": {
+    "message": "Choose which audio tracks you want to embed in the video:"
+  },
+  "ui_cancel": {
+    "message": "Cancel"
+  },
+  "ui_confirm": {
+    "message": "Confirm"
+  },
+  "status_decoding": {
+    "message": "Decoding audio tracks..."
+  },
+  "status_encoding": {
+    "message": "Encoding to MP3... $1%"
+  },
+  "status_ready": {
+    "message": "Ready to Save / Preview"
+  },
+  "status_processing": {
+    "message": "Processing..."
+  },
+  "ui_download_manager": {
+    "message": "Download Manager"
+  },
+  "ui_empty_title": {
+    "message": "All Caught Up!"
+  },
+  "ui_empty_desc": {
+    "message": "No active downloads or tasks at the moment. Start downloading media to see them here."
+  },
+  "ui_clear_all": {
+    "message": "Clear All"
+  },
+  "ui_preview": {
+    "message": "Preview"
+  },
+  "ui_close": {
+    "message": "Close"
+  },
+  "ui_close_preview": {
+    "message": "Close Preview"
+  },
+  "ui_save": {
+    "message": "Save"
+  }
+}

@@ -1,0 +1,198 @@
+<!--
+    youtube-download-injector - A browser extension to detect and download YouTube videos, audio, and subtitles.
+    Copyright (C) 2026 anpa26
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html lang="en" class="mdui-theme-light is-popup" style="width: 380px; height: 520px;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Download Injector - Manager</title>
+  <link rel="stylesheet" href="styles/mdui.css">
+  <script src="libraries/mdui.global.js"></script>
+  <link rel="stylesheet" href="styles/popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="is-popup">
+  <div class="app-container">
+    
+    <header class="app-header">
+      <div class="logo-wrapper">
+        <span class="app-title">YT Downloader</span>
+      </div>
+      <button id="nav-toggle-btn" class="nav-toggle-btn" data-i18n="tab_settings">Settings</button>
+    </header>
+
+    
+    <main class="dashboard-content">
+      
+      <div id="view-home" class="tab-panel active">
+        
+        <section class="dashboard-section">
+          <h2 class="settings-section-title">
+            <span data-i18n="section_active_downloads">Active Downloads</span>
+          </h2>
+          <div id="active-downloads-container">
+            <div class="empty-state" data-i18n="no_active_downloads">No active downloads</div>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top: 12px;">
+            <mdui-button id="download-manager-btn" variant="tonal" style="width: 100%; --mdui-shape-corner-extra-small: 12px;" data-i18n="btn_open_download_manager">Open Download Manager</mdui-button>
+          </div>
+        </section>
+
+        
+        <section class="dashboard-section">
+          <div class="history-header">
+            <h2 class="settings-section-title">
+              <span data-i18n="section_history">Download History</span>
+            </h2>
+            <span id="clear-history-btn" class="clear-text-btn" data-i18n="btn_clear_history">Clear</span>
+          </div>
+          <div id="history-container" class="history-list">
+            <div class="empty-state" data-i18n="no_history">No download history</div>
+          </div>
+        </section>
+
+
+
+      </div>
+
+      
+      <div id="view-settings" class="tab-panel">
+        <section class="dashboard-section">
+          <h2 class="settings-section-title" data-i18n="settings_title">Settings</h2>
+          <mdui-card class="settings-card">
+            <div class="setting-item">
+              <div class="setting-text">
+                <h3 data-i18n="setting_inject_btn_title">Show Download Button on YT</h3>
+                <p data-i18n="setting_inject_btn_desc">Add download button directly below YouTube video details.</p>
+              </div>
+              <mdui-switch id="setting-inject-btn"></mdui-switch>
+            </div>
+            <div class="setting-item">
+              <div class="setting-text">
+                <h3 data-i18n="setting_download_mode_title">Download Button Action</h3>
+                <p data-i18n="setting_download_mode_desc">Choose what happens when clicking the download button.</p>
+              </div>
+              <div class="select-wrapper">
+                <select id="setting-download-mode" class="custom-select">
+                  <option value="popup" data-i18n="option_download_mode_popup">Popup Menu</option>
+                  <option value="direct" data-i18n="option_download_mode_direct">Direct Download</option>
+                </select>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-text">
+                <h3 data-i18n="setting_theme_title">App Theme</h3>
+                <p data-i18n="setting_theme_desc">Switch between light or dark theme.</p>
+              </div>
+              <div class="select-wrapper">
+                <select id="setting-theme" class="custom-select">
+                  <option value="light" data-i18n="option_theme_light">Light</option>
+                  <option value="pitch-black" data-i18n="option_theme_dark">Gelap</option>
+                </select>
+              </div>
+            </div>
+            <div id="direct-download-options" style="display: none;">
+              <div class="setting-item">
+                <div class="setting-text">
+                  <h3 data-i18n="setting_direct_format_title">Direct: Preferred Format</h3>
+                  <p data-i18n="setting_direct_format_desc">Default file format to download.</p>
+                </div>
+                <div class="select-wrapper">
+                  <select id="setting-direct-format" class="custom-select">
+                    <option value="mp4">MP4 (Video)</option>
+                    <option value="webm">WebM (Video)</option>
+                    <option value="mp3">MP3 (Audio)</option>
+                    <option value="m4a">M4A (Audio)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="setting-item" id="direct-resolution-item">
+                <div class="setting-text">
+                  <h3 data-i18n="setting_direct_resolution_title">Direct: Preferred Resolution</h3>
+                  <p data-i18n="setting_direct_resolution_desc">Preferred video resolution.</p>
+                </div>
+                <div class="select-wrapper">
+                  <select id="setting-direct-resolution" class="custom-select">
+                    <option value="highest" data-i18n="option_resolution_highest">Highest Quality</option>
+                    <option value="1080p">1080p</option>
+                    <option value="720p">720p</option>
+                    <option value="480p">480p</option>
+                    <option value="360p">360p</option>
+                    <option value="lowest" data-i18n="option_resolution_lowest">Lowest Quality</option>
+                  </select>
+                </div>
+              </div>
+              <div class="setting-item" id="direct-codec-item">
+                <div class="setting-text">
+                  <h3 data-i18n="setting_direct_codec_title">Direct: Preferred Codec</h3>
+                  <p data-i18n="setting_direct_codec_desc">Preferred video encoding codec.</p>
+                </div>
+                <div class="select-wrapper">
+                  <select id="setting-direct-codec" class="custom-select">
+                    <option value="any" data-i18n="option_codec_any">Any Codec</option>
+                    <option value="avc">AVC / H.264</option>
+                    <option value="vp9">VP9</option>
+                    <option value="av01">AV1</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-text">
+                <h3 data-i18n="setting_embed_subtitles_title">Embed Subtitles if available</h3>
+                <p data-i18n="setting_embed_subtitles_desc">Automatically remux and burn soft subtitles inside the stream.</p>
+              </div>
+              <mdui-switch id="setting-embed-subtitles" checked></mdui-switch>
+            </div>
+            <div class="setting-item" id="auto-embed-subtitles-item">
+              <div class="setting-text">
+                <h3 data-i18n="setting_auto_embed_subtitles_title">Auto embed all subtitles available</h3>
+                <p data-i18n="setting_auto_embed_subtitles_desc">Automatically embed all available subtitles instead of showing a checklist popup when multiple exist.</p>
+              </div>
+              <mdui-switch id="setting-auto-embed-subtitles"></mdui-switch>
+            </div>
+            <div class="setting-item">
+              <div class="setting-text">
+                <h3 data-i18n="setting_embed_audiotracks_title">Embed Audio Tracks if available</h3>
+                <p data-i18n="setting_embed_audiotracks_desc">Automatically remux additional audio tracks (multi-language/Sulih Suara) inside the video.</p>
+              </div>
+              <mdui-switch id="setting-embed-audiotracks" checked></mdui-switch>
+            </div>
+            <div class="setting-item" id="auto-embed-audiotracks-item">
+              <div class="setting-text">
+                <h3 data-i18n="setting_auto_embed_audiotracks_title">Auto embed all audio tracks available</h3>
+                <p data-i18n="setting_auto_embed_audiotracks_desc">Automatically embed all available audio tracks instead of showing a checklist popup when multiple exist.</p>
+              </div>
+              <mdui-switch id="setting-auto-embed-audiotracks"></mdui-switch>
+            </div>
+          </mdui-card>
+        </section>
+      </div>
+    </main>
+
+    
+    <footer class="app-footer">
+      <span>© 2026 anpa26. Released under the <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPL v3 License</a></span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

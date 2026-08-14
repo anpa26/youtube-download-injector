@@ -1,0 +1,88 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_ext_name__",
+  "version": "1.3.1",
+  "description": "__MSG_ext_desc__",
+  "author": "anpa26",
+  "developer": {
+    "name": "anpa26",
+    "url": "https://github.com/anpa26"
+  },
+  "default_locale": "en",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads",
+    "declarativeNetRequest",
+    "storage",
+    "offscreen"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "host_permissions": [
+    "https://youtube.com/*",
+    "https://*.youtube.com/*",
+    "https://googlevideo.com/*",
+    "https://*.googlevideo.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon.svg",
+      "32": "icons/icon.svg",
+      "48": "icons/icon.svg",
+      "128": "icons/icon.svg"
+    }
+  },
+  "icons": {
+    "16": "icons/icon.svg",
+    "32": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "128": "icons/icon.svg"
+  },
+  "background": {
+    "scripts": [
+      "libraries/lame.min.js",
+      "libraries/libav.js",
+      "libraries/wymd.js",
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://youtube.com/*",
+        "https://*.youtube.com/*"
+      ],
+      "js": [
+        "libraries/lame.min.js",
+        "libraries/libav.js",
+        "libraries/wymd.js",
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{9d4bfc70-df52-45ff-9780-9d07670eb5a7}",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "options_ui": {
+    "page": "popup.html?options=true",
+    "open_in_tab": true
+  }
+}

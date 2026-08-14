@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "origin",
+          "operation": "set",
+          "value": "https://www.youtube.com"
+        },
+        {
+          "header": "referer",
+          "operation": "set",
+          "value": "https://www.youtube.com/"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/youtubei/v1/player",
+      "resourceTypes": ["xmlhttprequest", "other"],
+      "excludedInitiatorDomains": ["youtube.com"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "referer",
+          "operation": "set",
+          "value": "https://www.youtube.com/"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/watch",
+      "resourceTypes": ["xmlhttprequest", "other"],
+      "excludedInitiatorDomains": ["youtube.com"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "origin",
+          "operation": "set",
+          "value": "https://www.youtube.com"
+        },
+        {
+          "header": "referer",
+          "operation": "set",
+          "value": "https://www.youtube.com/"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "||googlevideo.com",
+      "resourceTypes": ["xmlhttprequest", "other"],
+      "excludedInitiatorDomains": ["youtube.com"]
+    }
+  }
+]
